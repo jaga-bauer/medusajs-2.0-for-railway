@@ -1,6 +1,6 @@
 let titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
-let typingSpeed = 300;  // ms per character
-let deletingSpeed = 200; // ms per character
+let typingSpeed = 300;      // ms per character
+let deletingSpeed = 200;    // ms per character
 let pauseAfterTyping = 1000; // ms to wait after full title
 let pauseAfterDeleting = 500; // ms before next title
 
@@ -21,7 +21,7 @@ async function typeWriter() {
 
             // Delete letters
             for (let i = title.length; i >= 0; i--) {
-                document.title = title.slice(0, i) + "|";
+                document.title = title.slice(0, i) + (i > 0 ? "|" : ""); // remove cursor when empty
                 await sleep(deletingSpeed);
             }
 
