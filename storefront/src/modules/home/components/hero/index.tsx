@@ -1,36 +1,47 @@
 "use client" // <- must be at the very top
 
-import { useEffect } from "react"
-import { Github } from "@medusajs/icons"
-import { Button, Heading } from "@medusajs/ui"
+import { useEffect, useState } from "react"
+import { Heading } from "@medusajs/ui"
 
 const Hero = () => {
+  const [titleText, setTitleText] = useState(""); // text without cursor
+  const [showCursor, setShowCursor] = useState(true); // cursor visibility
+
   useEffect(() => {
     const titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
     const typingSpeed = 200; // ms per character
     const deletingSpeed = 100; // ms per character
     const pauseAfterTyping = 1000;
-    const pauseAfterDeleting = 200;
+    const pauseAfterDeleting = 500;
+    const blinkSpeed = 500; // ms for blinking cursor
+
+    let active = true;
 
     function sleep(ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
-    let active = true // allows cleanup
+    // Cursor blinking independent of typing
+    const blinkInterval = setInterval(() => {
+      if (!active) return;
+      setShowCursor(prev => !prev);
+    }, blinkSpeed);
 
     async function typeWriter() {
       while (active) {
         for (const title of titles) {
           // Type letters
           for (let i = 0; i <= title.length; i++) {
-            document.title = title.slice(0, i) + "|";
+            if (!active) return;
+            setTitleText(title.slice(0, i));
             await sleep(typingSpeed);
           }
           await sleep(pauseAfterTyping);
 
           // Delete letters
           for (let i = title.length; i >= 0; i--) {
-            document.title = title.slice(0, i) + "|";
+            if (!active) return;
+            setTitleText(title.slice(0, i));
             await sleep(deletingSpeed);
           }
           await sleep(pauseAfterDeleting);
@@ -38,13 +49,18 @@ const Hero = () => {
       }
     }
 
-    typeWriter()
+    typeWriter();
 
-    // Cleanup in case component unmounts
     return () => {
-      active = false
+      active = false;
+      clearInterval(blinkInterval);
     }
-  }, [])
+  }, []);
+
+  // Update document.title with blinking cursor
+  useEffect(() => {
+    document.title = titleText + (showCursor ? "|" : "");
+  }, [titleText, showCursor]);
 
   return (
     <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
