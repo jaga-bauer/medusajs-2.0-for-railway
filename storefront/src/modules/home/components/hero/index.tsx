@@ -1,3 +1,5 @@
+"use client" // <- must be at the very top
+
 import { useEffect } from "react"
 import { Github } from "@medusajs/icons"
 import { Button, Heading } from "@medusajs/ui"
@@ -14,8 +16,10 @@ const Hero = () => {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    let active = true // allows cleanup
+
     async function typeWriter() {
-      while (true) {
+      while (active) {
         for (const title of titles) {
           // Type letters
           for (let i = 0; i <= title.length; i++) {
@@ -34,8 +38,13 @@ const Hero = () => {
       }
     }
 
-    typeWriter();
-  }, []);
+    typeWriter()
+
+    // Cleanup in case component unmounts
+    return () => {
+      active = false
+    }
+  }, [])
 
   return (
     <div className="h-[75vh] w-full border-b border-ui-border-base relative bg-ui-bg-subtle">
