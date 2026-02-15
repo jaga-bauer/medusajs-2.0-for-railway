@@ -29,6 +29,39 @@ const Hero = () => {
         </a>
       </div>
     </div>
+    <script type="module">
+const titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
+const typingSpeed = 300; // ms per character
+const deletingSpeed = 200; // ms per character
+const pauseAfterTyping = 1000;
+const pauseAfterDeleting = 500;
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function typeWriter() {
+  while (true) {
+    for (let title of titles) {
+      // Type letters
+      for (let i = 0; i <= title.length; i++) {
+        document.title = title.slice(0, i) + "|";
+        await sleep(typingSpeed);
+      }
+      await sleep(pauseAfterTyping);
+
+      // Delete letters
+      for (let i = title.length; i >= 0; i--) {
+        document.title = title.slice(0, i) + "|";
+        await sleep(deletingSpeed);
+      }
+      await sleep(pauseAfterDeleting);
+    }
+  }
+}
+
+typeWriter();
+</script>
   )
 }
 
