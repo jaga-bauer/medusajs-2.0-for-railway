@@ -7,10 +7,10 @@ import { Button, Heading } from "@medusajs/ui"
 const Hero = () => {
   useEffect(() => {
     const titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
-    const typingSpeed = 300; // ms per character
-    const deletingSpeed = 200; // ms per character
+    const typingSpeed = 200; // ms per character
+    const deletingSpeed = 100; // ms per character
     const pauseAfterTyping = 1000;
-    const pauseAfterDeleting = 500;
+    const pauseAfterDeleting = 200;
 
     function sleep(ms: number) {
       return new Promise(resolve => setTimeout(resolve, ms));
