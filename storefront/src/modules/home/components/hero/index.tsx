@@ -9,7 +9,7 @@ const Hero = () => {
 
   useEffect(() => {
     const titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
-    const typingSpeed = 200; // ms per character
+    const typingSpeed = 300; // ms per character
     const deletingSpeed = 100; // ms per character
     const pauseAfterTyping = 1500;
     const pauseAfterDeleting = 0;
