@@ -2,40 +2,6 @@ const checkEnvVariables = require("./check-env-variables")
 
 checkEnvVariables()
 
-let titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
-let typingSpeed = 300;      // ms per character
-let deletingSpeed = 200;    // ms per character
-let pauseAfterTyping = 1000; // ms to wait after full title
-let pauseAfterDeleting = 500; // ms before next title
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function typeWriter() {
-    while (true) {
-        for (let title of titles) {
-            // Type letters
-            for (let i = 0; i <= title.length; i++) {
-                document.title = title.slice(0, i) + "|"; // add cursor
-                await sleep(typingSpeed);
-            }
-
-            await sleep(pauseAfterTyping);
-
-            // Delete letters
-            for (let i = title.length; i >= 0; i--) {
-                document.title = title.slice(0, i) + (i > 0 ? "|" : ""); // remove cursor when empty
-                await sleep(deletingSpeed);
-            }
-
-            await sleep(pauseAfterDeleting);
-        }
-    }
-}
-
-typeWriter();
-
 /**
  * @type {import('next').NextConfig}
  */
