@@ -11,8 +11,8 @@ const Hero = () => {
     const titles = ["Welcome!", "pls be rich", "i need money", "cool code", "right?", ":p"];
     const typingSpeed = 200; // ms per character
     const deletingSpeed = 100; // ms per character
-    const pauseAfterTyping = 1000;
-    const pauseAfterDeleting = 500;
+    const pauseAfterTyping = 1500;
+    const pauseAfterDeleting = 100;
     const blinkSpeed = 500; // ms for blinking cursor
 
     let active = true;
