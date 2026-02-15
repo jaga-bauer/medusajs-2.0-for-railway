@@ -12,7 +12,7 @@ const Hero = () => {
     const typingSpeed = 200; // ms per character
     const deletingSpeed = 100; // ms per character
     const pauseAfterTyping = 1500;
-    const pauseAfterDeleting = 100;
+    const pauseAfterDeleting = 0;
     const blinkSpeed = 500; // ms for blinking cursor
 
     let active = true;
